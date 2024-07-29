@@ -1,0 +1,42 @@
+;Trial program done in the very first lab
+	AREA RESET, DATA, READONLY
+	EXPORT __Vectors
+
+__Vectors
+	DCD 0x10001000
+	
+	DCD Reset_Handler
+	
+	ALIGN 
+	AREA mycode,CODE, READONLY
+	ENTRY
+	EXPORT Reset_Handler
+	
+Reset_Handler
+	MOV R0,#0x123
+	MOV R1,#123
+	ADD R2,#33
+	ADD R2,R1
+	LDR R4,=0X22222222
+	
+	;Can also try the following
+	;MOV R0,#OX10
+	;MOV R1,#2_1010
+	;MOV R3,#-2
+	;MOV R4,#3_1010
+	;MOV R5,#0XFFFF
+	;LDR R6,=0XFFFF
+	
+	;Can also try the following
+	;LDR R0,=SRC
+	;LDR R1,[R0]
+	;LDR R2,[R0,#4]
+	
+STOP
+	B STOP
+	
+NUM EQU 10
+SRC DCD 8,0X123456,34567891
+
+	END
+	
