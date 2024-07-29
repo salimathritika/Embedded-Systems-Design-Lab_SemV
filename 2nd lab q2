@@ -1,3 +1,5 @@
+;2)Write an assembly language program to copy 5 32-bit numbers from one array to another and the arrays are defined in the data memory
+;Here we have to manually dump the values in the memory
 	AREA RESET, DATA, READONLY 
 	EXPORT __Vectors
 	
