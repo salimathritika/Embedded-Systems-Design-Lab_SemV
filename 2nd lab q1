@@ -1,3 +1,4 @@
+;1)Write an assembly language program to copy an array of two 32-bit numbers from code memory to data memory
 	AREA RESET, DATA, READONLY 
 	EXPORT __Vectors
 	
