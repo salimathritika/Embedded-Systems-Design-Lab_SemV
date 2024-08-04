@@ -16,8 +16,8 @@ Reset_Handler
 	LDR R0,=(N+(SIZE-1)*4)
 	LDR R1,=(N+(SIZE-1)*4+SHIFTS*4)
 BACK
-	LDR R2,[R0],#4
-	STR R2,[R1],#4
+	LDR R2,[R0],#-4
+	STR R2,[R1],#-4
 	SUB R3,#1 ;Subtracts the value of R3 by a by value of 1
 	CMP R3,#0 ;Keeps comparing the value of R3 with 0
 	BNE BACK ;BNE--> Branch when Not equal, so it breaks if R3 becomes equal to 0,as long as not equal it keeps looping, the loop breaks when Z flag becomes 1 from 0, the Z flag can be seen under xPSR
