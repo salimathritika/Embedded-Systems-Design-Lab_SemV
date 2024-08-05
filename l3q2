@@ -1,3 +1,4 @@
+;WORKS
 ;2.	Write a program to add two 128 bit numbers stored in code segment and store the result in data segment
 
 	AREA RESET,DATA,READONLY
