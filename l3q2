@@ -1,0 +1,46 @@
+;2.	Write a program to add two 128 bit numbers stored in code segment and store the result in data segment
+
+	AREA RESET,DATA,READONLY
+	EXPORT __Vectors
+	
+__Vectors
+	DCD 0X10001000
+	DCD Reset_Handler
+	
+	ALIGN
+	AREA mycode,CODE,READONLY
+	ENTRY
+	EXPORT Reset_Handler
+	
+Reset_Handler
+	LDR R1,=N1
+	LDR R2,=N2
+	LDR R0,=SUM
+	MOV R10,#4
+	ADDS R9,#0
+	
+BACK
+	LDR R3,[R1],#4
+	LDR R4,[R2],#4
+	ADCS R7,R3,R4
+	STR R7,[R0],#4
+	SUB R10,#1
+	TEQ R10,#0
+	BNE BACK;
+	
+	;CMP and SUBS modifies the carry flag which messes up the Adding operatipon. hence we use TEQ to not modify the C flag. TEQ does exor operation (Test if Equal)
+	ADC R5,#0
+	STR R5,[R0]
+
+
+STOP
+	B STOP
+	
+N1 DCD 0XFFFFFFFF,0X11,0X3,0XFFFFFFFF
+N2 DCD 0X5,0X12,0X4,0X7
+
+	AREA mydata,DATA,READWRITE
+SUM DCD 0,0,0,0,0
+
+	END
+	
