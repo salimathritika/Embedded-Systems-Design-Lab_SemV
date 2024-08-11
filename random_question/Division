@@ -1,0 +1,45 @@
+;Q) Write an ALP to perform division with repetitive subtraction
+
+	AREA RESET,DATA,READONLY
+	EXPORT __Vectors
+	
+__Vectors
+	DCD 0X10001000
+	DCD Reset_Handler
+	
+	ALIGN
+	AREA mycode,CODE,READONLY
+	ENTRY
+	EXPORT Reset_Handler
+	
+Reset_Handler
+	LDR R1,=N1
+	LDR R1,[R1]
+	LDR R2,=N2
+	LDR R2,[R2]
+	
+	MOV R3,#0
+UP
+	CMP R1,R2
+	BLO EXIT
+	SUB R1,R2
+	ADD R3,#1
+	B UP
+	
+EXIT
+	LDR R4,=QUO
+	STR R3,[R4]
+	LDR R4,=REM
+	STR R1,[R4]	
+	
+STOP
+	B STOP
+	
+N1 DCD 0X8
+N2 DCD 0X2
+
+	AREA mydata, DATA, READWRITE
+QUO DCD 0
+REM DCD 0
+	END
+	
