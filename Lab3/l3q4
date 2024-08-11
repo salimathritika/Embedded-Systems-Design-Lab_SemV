@@ -31,8 +31,7 @@ Reset_Handler
 	LDR R2,[R0]
 	LDR R3,[R1]
 	LDR R9,=DST
-	EXPORT LOOP
-	
+		
 LOOP 
 	CMP R2,R3
 	BEQ FIND_LCM
