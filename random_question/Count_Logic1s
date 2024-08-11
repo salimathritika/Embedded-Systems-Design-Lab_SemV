@@ -1,0 +1,34 @@
+;Q) Write an ALP to count the number of logic 1s in the register R0
+
+	AREA RESET,DATA,READONLY
+	EXPORT __Vectors
+	
+__Vectors
+	DCD 0X10001000
+	DCD Reset_Handler
+	
+	ALIGN
+	AREA mycode,CODE,READONLY
+	ENTRY
+	EXPORT Reset_Handler
+	
+Reset_Handler
+	LDR R0,=N1
+	LDR R0,[R0]
+	
+UP
+	LSRS R0,#1 ;Updates N,Z,C flags. Logical Shift Right and Status update
+	ADC R1,#0
+	BNE UP  ; Checks if Z=1 or not. If Z=1, R0 is zero and it breaks
+
+	LDR R2,=COUNT
+	STR R1,[R2]
+STOP
+	B STOP
+	
+N1 DCD 0XF
+
+	AREA mydata, DATA, READWRITE
+COUNT DCD 0
+	END
+	
