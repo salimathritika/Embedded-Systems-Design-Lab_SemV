@@ -9,12 +9,14 @@
 ;   } while(remainder!=0);
 ;Return (i*a);
 
-;NOT COMPLETE
-	AREA RESET,DATA,READONLY
+;WORKS
+
+	AREA RESET, DATA, READONLY
 	EXPORT __Vectors
 	
 __Vectors
 	DCD 0X10001000
+	
 	DCD Reset_Handler
 	
 	ALIGN
@@ -23,28 +25,49 @@ __Vectors
 	EXPORT Reset_Handler
 	
 Reset_Handler
-	MOV R2,#00
-	LDR R0, =VALUE1	;pointer to the first value1
-	LDR R1,[R0]		;load the first value into r1
-	LDR R0,=VALUE2	;pointer to the second value
-	LDR R3, [R0]		;load  second number into r3
-up	SUB  R1, R3		;Subtract two numbers 
-	ADD R2,#01		;increment a counter
-	CMP R1,R3		;compare two numbers
-	BCS up		;check R1is greater than R3 or not, if yes loop
-	LDR R6, =RESULT	;Quotient 
-	STR R2,[R6,#4]
-	STR R1,[R6]		;Store remainder.
 
-
+	LDR R0,=Num1
+	LDR R1,=Num2
+	LDR R2,[R0]
+	LDR R3,[R1]
+	LDR R9,=DST
+	EXPORT LOOP
+	
+LOOP 
+	CMP R2,R3
+	BEQ FIND_LCM
+	BHI DECREMENT_R2
+	BLO DECREMENT_R3
+	
+DECREMENT_R2
+	SUB R2,R2,R3
+	B LOOP
+	
+DECREMENT_R3
+	SUB R3,R3,R2
+	B LOOP
+	
+FIND_LCM
+	MOV R5,R2
+	LDR R2,[R0]
+	LDR R3,[R1]
+	MUL R4,R2,R3
+	MOV R0,#0
+	
+DIVIDE 
+	SUB R4,R4,R5
+	ADD R0,R0,#1
+	CMP R4,#0
+	BNE DIVIDE
+	STR R0,[R9]
+	
 STOP
 	B STOP
-	
-VALUE1 DCD 0x20000000	;First 32 bit number
-VALUE2 DCD 0x00050000	;Second 16 bit number 
 
-	AREA mydata,DATA,READWRITE
-RESULT DCD 0,0
+Num1 DCD 0x6
+Num2 DCD 0x9
+
+	AREA data1,DATA,READWRITE
+DST DCD 0
 
 	END
-	
