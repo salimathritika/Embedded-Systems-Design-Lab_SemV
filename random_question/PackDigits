@@ -1,0 +1,37 @@
+;Q) Write an ALP to pack the digits defined in N as shown: N DCD 0X8,0X7,0X6,0X5,0X4,0X3,0X2,0X1
+
+	AREA RESET,DATA,READONLY
+	EXPORT __Vectors
+	
+__Vectors
+	DCD 0X10001000
+	DCD Reset_Handler
+	
+	ALIGN
+	AREA mycode,CODE,READONLY
+	ENTRY
+	EXPORT Reset_Handler
+	
+Reset_Handler
+	MOV R4,#8 ;COUNTER
+	LDR R3,=N
+UP
+	LDR R1,[R3],#4 ;POSTINDEXING
+	LSL R1,R2
+	ADD R0,R1
+	ADD R2,#4
+	SUBS R4,#1
+	BNE UP
+	
+	LDR R5,=RESULT
+	STR R0,[R5]
+	
+STOP
+	B STOP
+	
+N DCD 0X8,0X7,0X6,0X5,0X4,0X3,0X2,0X1
+
+	AREA mydata, DATA, READWRITE
+RESULT DCD 0
+	END
+	
