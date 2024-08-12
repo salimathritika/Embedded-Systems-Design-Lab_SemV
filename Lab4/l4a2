@@ -1,0 +1,39 @@
+;Lab4 additional q2)Write a program to convert a 32 bit number in the unpacked form into packed form.
+;WORKS
+
+	AREA RESET,DATA,READONLY
+	EXPORT __Vectors
+	
+__Vectors
+	DCD 0X10001000
+	DCD Reset_Handler
+	
+	ALIGN
+	AREA mycode,CODE,READONLY
+	ENTRY
+	EXPORT Reset_Handler
+	
+Reset_Handler
+	MOV R0,#8
+	MOV R6,#0
+	LDR R1,=N
+UP
+	LDR R2,[R1],#4
+	LSL R2,R6
+	ADD R3,R2
+	ADD R6,#4
+	SUBS R0,#1
+	BNE UP
+	
+	LDR R5,=RESULT
+	STR R3,[R5]
+	
+STOP
+	B STOP
+	
+N DCD 0X8,0X7,0X6,0X5,0X4,0X3,0X2,0X1
+
+	AREA mydata, DATA, READWRITE
+RESULT DCD 0
+	END
+	
