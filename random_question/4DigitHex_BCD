@@ -1,5 +1,5 @@
 ;Q) Write an ALP to convert a 4 digit hexadecimal number to BCD
-;Need to check. Probably isn't working
+;works
 	AREA RESET,DATA,READONLY
 	EXPORT __Vectors
 	
@@ -13,8 +13,8 @@ __Vectors
 	EXPORT Reset_Handler
 	
 Reset_Handler
-	LDR R0,=N
-	LDR R1,[R0]
+	LDR R1,=N
+	LDR R1,[R1]
 UP2
 	CMP R1,#0
 	BEQ EXIT2
