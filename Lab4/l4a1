@@ -1,0 +1,38 @@
+;Lab4 ADDITIONAL 1.Write an ARM assembly language program to covert 2-digit hexadecimal number in ASCII unpacked form into its equivalent packed hexadecimal number 
+	AREA RESET,DATA,READONLY
+	EXPORT __Vectors
+	
+__Vectors
+	DCD 0X10001000
+	DCD Reset_Handler
+	
+	ALIGN
+	AREA mycode,CODE,READONLY
+	ENTRY
+	EXPORT Reset_Handler
+	
+Reset_Handler
+	LDR R4,=N
+	LDR R0,[R4] ;SECOND DIGIT (TENS PLACE)
+	LDR R1,[R4,#4] ;FIRST DIGIT(UNITS PLACE)
+	  
+	CMP R0,#0X37
+	SUBLO R0,#0X30 ;subtracting 0x30 if number less than 0x37 in ASCII (Decimal digit->0-9)
+	SUBHS R0,#0X37 ;subtracting 0x37 if number greater than or equal to 0x37 in ASCII (Hex digit->A-F)
+	ADD R2,R0
+	LSL R2,#4
+	CMP R1,#0X37
+	SUBLO R1,#0X30
+	SUBHS R1,#0X37
+	ADD R2,R1
+	LDR R3,=ASCII
+	STR R2,[R3]
+STOP
+	B STOP
+	
+N DCD 0X41,0X32
+
+	AREA mydata, DATA, READWRITE
+ASCII DCD 0,0
+	END
+	
