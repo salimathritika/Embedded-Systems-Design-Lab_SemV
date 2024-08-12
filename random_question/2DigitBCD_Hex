@@ -1,4 +1,4 @@
-;Q) Write an ALP to count the number of logic 1s in the register R0
+;Q) Write an ALP to convert a 2 digit BCD number to its equivalent hexadecimal form
 
 	AREA RESET,DATA,READONLY
 	EXPORT __Vectors
