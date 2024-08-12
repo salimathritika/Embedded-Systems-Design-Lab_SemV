@@ -1,0 +1,31 @@
+;Lab3 additional 2)Find the sum of ‘n’ natural numbers using MLA instruction.
+
+	AREA RESET,DATA,READONLY
+	EXPORT __Vectors
+	
+__Vectors
+	DCD 0X10001000
+	DCD Reset_Handler
+	
+	ALIGN
+	AREA mycode,CODE,READONLY
+	ENTRY
+	EXPORT Reset_Handler
+	
+Reset_Handler
+	LDR R0,=N
+	LDR R0,[R0]
+	MLA R0,R0,R0,R0
+	LSR R0,1
+	LDR R1,=RESULT
+	STR R0,[R1]
+	
+STOP
+	B STOP
+	
+N DCD 5
+
+	AREA mydata, DATA, READWRITE
+RESULT DCD 0
+	END
+	
