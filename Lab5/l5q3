@@ -1,5 +1,4 @@
 ;3)Write an assembly program to search an element in an array of ten 32 bit numbers using linear search
-;NOT WORKING WRITE AGAIN
 	 AREA RESET,DATA,READONLY
 	 EXPORT __Vectors
 	 
@@ -49,3 +48,50 @@ KEY DCD 30
 	AREA mydata,DATA,READWRITE
 FLAG DCD 0
 	END
+-----------------------------------------------------------------------------------------------------------------
+;TO RETURN INDEX IF FOUND
+
+	AREA RESET,DATA,READONLY
+	EXPORT __Vectors
+	
+__Vectors
+	DCD 0X10001000
+	DCD Reset_Handler
+	
+	ALIGN
+	AREA mycode,CODE,READONLY
+	ENTRY
+	EXPORT Reset_Handler
+	
+Reset_Handler
+	LDR R0,=N
+	MOV R1,#0
+	LDR R3,=KEY
+	LDR R3,[R3]
+	LDR R4,=RES
+LOOP
+	ADD R1,#1
+	LDR R2,[R0],#4
+	CMP R2,R3
+	BEQ FOUND
+	CMP R1,#10
+	BNE LOOP
+
+NOTFOUND
+	MOV R5,#0
+	STR R5,[R4]
+	B STOP
+
+FOUND
+	STR R1,[R4]
+	
+STOP
+	B STOP
+	
+N DCD 5,3,7,4,0,65,34,23,57,85
+KEY DCD 90
+
+	AREA mydata,DATA,READWRITE
+RES DCD 0
+	END
+	
