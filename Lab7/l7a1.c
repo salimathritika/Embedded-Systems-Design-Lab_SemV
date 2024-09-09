@@ -9,18 +9,23 @@ int main()
 	LPC_PINCON->PINSEL4=0; //For the switch P2.12
 	LPC_GPIO0->FIODIR=0XFF<<4; //Output mode for LED
 	LPC_GPIO2->FIODIR=0<<12; //Input mode for switch
-
-  //Ring counter changes state only when switch is pressed
 	while(1)
 	{
 		x=LPC_GPIO2->FIOPIN;
 		x=x & 1<<12;
 		if(x==0)
 		{
-			LPC_GPIO0->FIOPIN=1<<(4+i%8);
 			i++;
-			for(j=0;j<10000;j++);//delay
 		}
+		else
+		{
+			i--;
+			if(i==-1)
+				i=7;
+		}
+		
+		LPC_GPIO0->FIOPIN=1<<(4+i%8);
+		for(j=0;j<10000;j++);//delay
 	}
 	
 }
