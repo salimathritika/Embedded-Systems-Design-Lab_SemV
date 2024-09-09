@@ -6,7 +6,7 @@ int main()
 	SystemInit();
 	SystemCoreClockUpdate();
 	LPC_PINCON->PINSEL0=0;
-	LPC_GPIO0->FIODIR=0XF<<4;
+	LPC_GPIO0->FIODIR=0XFF<<4;
 	while(1)
 	{
 		for(i=0;i<=255;i++)
