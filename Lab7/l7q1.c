@@ -12,7 +12,7 @@ int main()
 		for(i=0;i<=255;i++)
 		{
 			LPC_GPIO0->FIOPIN=i<<4;
-			for(j=0;j<10000;j++);//delay
+			for(j=0;j<10000000;j++);//delay
 		}
 	}
 	
