@@ -15,11 +15,12 @@ int main()
 	LPC_GPIO0->FIODIR=1<<4; //For LED
 	LPC_GPIO2->FIODIR=0<<12; //For Switch
 	
-	//Reading value of port 2 to x
-	x=LPC_GPIO2->FIOPIN;
-	x=x&1 << 12;
+	
 	while(1)
 	{
+		//Reading value of port 2 to x
+		x=LPC_GPIO2->FIOPIN;
+		x=x&1 << 12;
 		if(x==0)
 			LPC_GPIO0->FIOSET=1<<4;
 		else
