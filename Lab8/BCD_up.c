@@ -1,3 +1,4 @@
+//idk what i've done
 #include <LPC17xx.h>
 #include <stdio.h>
 
