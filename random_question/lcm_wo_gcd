@@ -1,0 +1,48 @@
+;works. finding lcm of two numbers without using gcd
+	AREA RESET,CODE,READONLY
+	EXPORT __Vectors
+	
+__Vectors
+	DCD 0X10001000
+	DCD Reset_Handler
+	
+	ALIGN
+	AREA mycode,CODE,READONLY
+	ENTRY
+	EXPORT Reset_Handler
+	
+Reset_Handler
+	LDR R1,=N1
+	LDR R1,[R1]
+	LDR R2,=N2
+	LDR R2,[R2]
+	MOV R0,#1
+LOOP
+	MUL R3,R0,R1
+	MOV R5,R3
+UP
+	CMP R5,R2
+	BLO EXIT1
+	SUB R5,R2
+	B UP
+EXIT1
+	CMP R5,#0
+	BEQ EXIT2
+	ADD R0,#1
+	B LOOP
+EXIT2
+	MUL R3,R0,R1
+	LDR R4,=LCM
+	STR R3,[R4]
+
+STOP
+	B STOP
+	
+N1 DCD 0X4
+N2 DCD 0X3
+
+	AREA mydata,DATA,READWRITE
+LCM DCD 0
+
+	END
+	
