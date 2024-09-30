@@ -1,0 +1,46 @@
+#include <LPC17xx.h>
+
+int main()
+{
+	int seven_seg[]={0x3F,0x06,0x5b,0x4f,0x66,0x60,0x7d,0x07,0x7f,0x6f,0x77,0x7c,0x39,0x5e,0x79,0x71};
+	int i,x,col,row,key,j;
+	SystemInit();
+	SystemCoreClockUpdate();
+	LPC_PINCON->PINSEL0=0;
+	LPC_PINCON->PINSEL1=0;
+  LPC_PINCON->PINSEL3=0;
+	LPC_PINCON->PINSEL4=0;
+	LPC_GPIO0->FIODIR=0XFF<<4 | 0XF<<15 ;  //PO.11 TO P0.4->SEVEN SEG PO.18 TO PO.15->DECODER
+	LPC_GPIO1->FIODIR=0;   //P1.26 TO P1.23->COLS
+	LPC_GPIO2->FIODIR=0XF<<10;  //P2.13 TO P2.10->ROWS
+	LPC_GPIO0->FIOPIN=0;
+	while(1)
+	{
+		for(i=0;i<4;i++)
+		{
+			LPC_GPIO2->FIOPIN=1<<(10+i);
+			x=LPC_GPIO1->FIOPIN;
+			for(j=0;j<50;i++);
+			x=(x>>23)&0xf;
+			if(x!=0)
+			{
+				if(x==1)
+					col=0;
+				else if(x==2)
+					col=1;
+				else if(x==4)
+					col=2;
+				else if(x==8)
+					col=3;
+				row=i;
+				break;
+			}
+		}
+		if(x!=0)
+		{
+			key=4*row+col;
+			LPC_GPIO0->FIOMASK=0XF<<15;
+			LPC_GPIO0->FIOPIN=seven_seg[key]<<4;
+		}
+	}
+}
