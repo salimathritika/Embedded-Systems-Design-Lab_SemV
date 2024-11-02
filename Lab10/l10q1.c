@@ -1,5 +1,5 @@
 //works
-
+//Not the code for the difference question 
 #include<LPC17xx.h>
 #include<stdio.h>
 int temp1, temp2, flag1, flag2;
